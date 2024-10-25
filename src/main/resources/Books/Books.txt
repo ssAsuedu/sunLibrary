@@ -1,0 +1,6 @@
+{
+    "Title": Example TextBook
+    "Category": Science
+    "Price": 95.99
+    "Condition": Used - Like New
+}
