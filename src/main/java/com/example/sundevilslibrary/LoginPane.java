@@ -1,6 +1,7 @@
 package com.example.sundevilslibrary;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
@@ -18,6 +19,9 @@ import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
 
 import javafx.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+
 import javafx.event.EventHandler;
 import java.net.URL;
 import java.util.ArrayList;
@@ -169,6 +173,7 @@ public class LoginPane extends HBox {
             // Collect user input
             String username = asuriteIdField.getText();
             String password = passwordField.getText();
+            System.out.printf("%s", password);
             loggedInAs.set(HandleLogin(buyers, sellers, admins, username, password));
             if (loggedInAs.intValue() == 1){
                 System.out.println("Logged In As Buyer!");
@@ -219,10 +224,23 @@ public class LoginPane extends HBox {
             if (showpass.isSelected()){
                 String pass = passwordField.getText();
                 psdField.setText(pass);
+
                 passwordField.setVisible(false);
                 psdField.setVisible(true);
                 selImgView.setVisible(true);
                 unImgView.setVisible(false);
+                psdField.textProperty().addListener(new ChangeListener<String>() {
+                    @Override
+                    public void changed(ObservableValue<?
+                            extends String> observable, String oldValue, String newValue)
+                    {
+                        // Handle text changes here
+                        passwordField.setText(newValue);
+                        System.out.println("New text: " + newValue);
+                    }
+                });
+//                System.out.printf("%s", passwordField.getText());
+                System.out.printf("%s", psdField.getText());
             } else {
                 String pass = psdField.getText();
                 passwordField.setText(pass);
@@ -230,6 +248,7 @@ public class LoginPane extends HBox {
                 passwordField.setVisible(true);
                 selImgView.setVisible(false);
                 unImgView.setVisible(true);
+
             }
         }
     };
